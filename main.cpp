@@ -502,18 +502,20 @@ void display() {
   glutSwapBuffers();
 }
 
+void printCurrentState(){
+  std::cout << "Offset: " << (int)offset << "\n";
+  std::cout << "Config: " << std::bitset<8>(offset) << "\n";
+  std::cout << std::endl;
+}
+
 void keyboard(unsigned char key, int x, int y) {
   if (key == 'e'){
     offset++;
-    std::cout << "Offset: " << (int)offset << "\n";
-    std::cout << "Config: " << std::bitset<8>(offset) << "\n";
-    std::cout << std::endl;
+    printCurrentState();
   }
   else if(key == 'q'){
     offset--;
-    std::cout << "Offset: " << (int)offset << "\n";
-    std::cout << "Config: " << std::bitset<8>(offset) << "\n";
-    std::cout << std::endl;
+    printCurrentState();
   }
   glutPostRedisplay();
 }
@@ -565,6 +567,12 @@ int main(int argc, char **argv) {
   glutKeyboardFunc(keyboard);
   glutSpecialFunc(specialKeys);
 
+  std::cout <<
+    "Use 'q' and 'e' to decrement/increment configuration\n" <<
+    "Use arrow keys to rotate cube\n"<<
+    std::endl;
+
+  printCurrentState();
   glutMainLoop();
   return 0;
 }
